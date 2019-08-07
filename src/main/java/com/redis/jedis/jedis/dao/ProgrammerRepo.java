@@ -1,6 +1,8 @@
 package com.redis.jedis.jedis.dao;
 
+import java.util.List;
 import org.springframework.stereotype.Repository;
+import com.redis.jedis.jedis.model.Programmer;
 
 
 @Repository
@@ -9,5 +11,12 @@ public interface ProgrammerRepo {
     void setProgrammer(final String idKey, String programmer);
 
     String getProgrammer(final String key);
+
+    void addToProgrammerList(final Programmer programmer);
+
+    List<Programmer> getProgrammerList();
+
+    Long getProgrammerListCount();
+
 
 }

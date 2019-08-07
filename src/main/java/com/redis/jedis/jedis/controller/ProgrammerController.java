@@ -1,5 +1,6 @@
 package com.redis.jedis.jedis.controller;
 
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,22 @@ public class ProgrammerController {
     @GetMapping(path = "/{id}")
     public String get(@PathVariable(name = "id") final String id) {
         return programmerService.getProgrammer(id);
+    }
+
+    @PostMapping(path = "/prog-list")
+    public void addProgrammerToList(@RequestBody final Programmer programmer) {
+
+        programmerService.addToProgrammerList(programmer);
+    }
+
+    @GetMapping(path = "/prog-list")
+    public List<Programmer> getAllProgrammer() {
+        return programmerService.getProgrammerList();
+    }
+
+    @GetMapping(path = "/prog-list/count")
+    public long getCont() {
+        return programmerService.getProgrammerListSize();
     }
 
 
