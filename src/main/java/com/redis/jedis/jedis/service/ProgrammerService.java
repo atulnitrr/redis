@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.service;
 
 import java.util.List;
+import java.util.Set;
 import com.redis.jedis.jedis.model.Programmer;
 
 
@@ -16,5 +17,14 @@ public interface ProgrammerService {
     List<Programmer> getProgrammerList();
 
     long getProgrammerListSize();
+
+    void addProgrammerToSet(final Programmer ...programmers);
+
+    Set<Programmer> getProgrammersSet();
+
+    boolean isMemberOfSet(final Programmer programmer);
+
+
+
 
 }

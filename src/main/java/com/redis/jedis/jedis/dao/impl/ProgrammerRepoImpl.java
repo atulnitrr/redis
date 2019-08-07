@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.dao.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.redis.jedis.jedis.model.Programmer;
 public class ProgrammerRepoImpl implements ProgrammerRepo {
 
     private static final String REDIS_LIST_KEY = "ProgrammerList";
+    private static final String REDIS_SET_KEY = "ProgrammerSet";
 
 
     @Autowired
@@ -58,6 +60,25 @@ public class ProgrammerRepoImpl implements ProgrammerRepo {
         System.out.println( "count --> "  + count);
         System.out.println( "v --> "  + v);
         return v;
+    }
+
+    @Override
+    public void addToProgrammerSet(final Programmer... programmers) {
+        redisTemplate.opsForSet().add(REDIS_SET_KEY, programmers);
+    }
+
+    @Override
+    public Set<Programmer> getProgrammerSet() {
+        return redisTemplate.opsForSet()
+                .members(REDIS_SET_KEY)
+                .stream()
+                .map( prog -> (Programmer) prog)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean isSetMember(final Programmer programmer) {
+        return redisTemplate.opsForSet().isMember(REDIS_SET_KEY, programmer);
     }
 
 }

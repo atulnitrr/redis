@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.dao;
 
 import java.util.List;
+import java.util.Set;
 import org.springframework.stereotype.Repository;
 import com.redis.jedis.jedis.model.Programmer;
 
@@ -17,6 +18,16 @@ public interface ProgrammerRepo {
     List<Programmer> getProgrammerList();
 
     Long getProgrammerListCount();
+
+
+
+//    SET
+
+    void addToProgrammerSet(final Programmer ...programmers);
+
+    Set<Programmer> getProgrammerSet();
+
+    boolean isSetMember(final Programmer programmer);
 
 
 }

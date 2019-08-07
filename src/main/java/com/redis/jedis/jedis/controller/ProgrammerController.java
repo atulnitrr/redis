@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.controller;
 
 import java.util.List;
+import java.util.Set;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +55,32 @@ public class ProgrammerController {
     public long getCont() {
         return programmerService.getProgrammerListSize();
     }
+
+
+
+    @PostMapping(path = "/prog-set")
+    public void addProgrammerToSet(@RequestBody Programmer ...programmers) {
+        programmerService.addProgrammerToSet(programmers);
+    }
+
+
+
+
+    @GetMapping(path = "/prog-set")
+    public Set<Programmer> getProgrammerSet() {
+        return programmerService.getProgrammersSet();
+
+    }
+
+    @PostMapping(path = "/prog-set/ism")
+    public boolean isM(@RequestBody final Programmer programmer) {
+        return programmerService.isMemberOfSet(programmer);
+
+    }
+
+
+
+
 
 
 }

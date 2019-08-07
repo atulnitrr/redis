@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.service.impl;
 
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.redis.jedis.jedis.dao.ProgrammerRepo;
@@ -43,6 +44,21 @@ public class ProgrammerServiceImpl implements ProgrammerService {
     @Override
     public long getProgrammerListSize() {
         return programmerRepo.getProgrammerListCount();
+    }
+
+    @Override
+    public void addProgrammerToSet(final Programmer... programmers) {
+        programmerRepo.addToProgrammerSet(programmers);
+    }
+
+    @Override
+    public Set<Programmer> getProgrammersSet() {
+        return programmerRepo.getProgrammerSet();
+    }
+
+    @Override
+    public boolean isMemberOfSet(final Programmer programmer) {
+        return programmerRepo.isSetMember(programmer);
     }
 
 }
