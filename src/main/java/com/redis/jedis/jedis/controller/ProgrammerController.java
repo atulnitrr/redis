@@ -79,6 +79,16 @@ public class ProgrammerController {
     }
 
 
+    @PostMapping(path = "/prog-hash")
+    public void addProgrammerTohash(@RequestBody final Programmer programmer) {
+        programmerService.saveToHash(programmer);
+    }
+
+    @GetMapping(path = "/prog-hash/{id}")
+    public Programmer get(@PathVariable(name = "id") final int id) {
+        return programmerService.findInHash(id);
+    }
+
 
 
 

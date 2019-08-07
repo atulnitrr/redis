@@ -1,6 +1,7 @@
 package com.redis.jedis.jedis.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,30 @@ public class ProgrammerServiceImpl implements ProgrammerService {
     @Override
     public boolean isMemberOfSet(final Programmer programmer) {
         return programmerRepo.isSetMember(programmer);
+    }
+
+
+    @Override
+    public void saveToHash(final Programmer programmer) {
+        programmerRepo.saveToHash(programmer);
+    }
+
+    @Override
+    public void updateHash(final Programmer programmer) {
+
+    }
+
+    @Override public Map<Integer, Programmer> findAllInHash() {
+        return null;
+    }
+
+    @Override public Programmer findInHash(final int id) {
+        return programmerRepo.findInHash(id);
+    }
+
+    @Override
+    public void deleteInHash(final int id) {
+        programmerRepo.deleteInHash(id);
     }
 
 }

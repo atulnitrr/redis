@@ -1,8 +1,10 @@
 package com.redis.jedis.jedis.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,6 +18,7 @@ public class ProgrammerRepoImpl implements ProgrammerRepo {
 
     private static final String REDIS_LIST_KEY = "ProgrammerList";
     private static final String REDIS_SET_KEY = "ProgrammerSet";
+    private static final String REDIS_HASH_KEY = "ProgrammerHash";
 
 
     @Autowired
@@ -79,6 +82,34 @@ public class ProgrammerRepoImpl implements ProgrammerRepo {
     @Override
     public boolean isSetMember(final Programmer programmer) {
         return redisTemplate.opsForSet().isMember(REDIS_SET_KEY, programmer);
+    }
+
+    @Override
+    public void saveToHash(final Programmer programmer) {
+        redisTemplate.opsForHash().put(REDIS_HASH_KEY, programmer.getId(), programmer);
+
+    }
+
+    @Override public void updateHash(final Programmer programmer) {
+        redisTemplate.opsForHash().put(REDIS_HASH_KEY, programmer.getId(), programmer);
+
+    }
+
+    @Override public Map<Integer, Programmer> findAllInHash() {
+//        return redisTemplate.opsForHash().entries(REDIS_HASH_KEY).entrySet().stream().map(objectObjectEntry -> (Map<Integer, Programmer>) objectObjectEntry).collect(
+//                Collectors.toMap());
+        return null;
+    }
+
+    @Override
+    public Programmer findInHash(final int id) {
+        return (Programmer) redisTemplate.opsForHash().get(REDIS_HASH_KEY, id);
+    }
+
+    @Override
+    public void deleteInHash(final int id) {
+        redisTemplate.opsForHash().delete(REDIS_HASH_KEY, id);
+
     }
 
 }
